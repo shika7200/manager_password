@@ -43,3 +43,7 @@ ul li {
 strong {
   font-weight: bold;
 }
+
+button + button {
+  margin-left: 5px;
+}
