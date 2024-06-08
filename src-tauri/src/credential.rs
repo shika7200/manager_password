@@ -11,7 +11,7 @@ pub struct Credentials {
 }
 
 pub(crate) fn add_credential(title: &str, login: &str, password: &str) -> Result<(), Box<dyn std::error::Error>> {
-    let mut path = PathBuf::from("src-tauri");
+    let mut path = PathBuf::from("assets");
     path.push("credentials.json");
 
     println!("Adding credential: {} - {} - {}", title, login, password); // Отладка
@@ -60,7 +60,7 @@ pub(crate) fn add_credential(title: &str, login: &str, password: &str) -> Result
 }
 
 pub(crate) fn get_credential() -> Result<Vec<Credentials>, Box<dyn std::error::Error>> {
-    let mut path = PathBuf::from("src-tauri");
+    let mut path = PathBuf::from("assets");
     path.push("credentials.json");
 
     if path.exists() {
@@ -77,7 +77,7 @@ pub(crate) fn get_credential() -> Result<Vec<Credentials>, Box<dyn std::error::E
 }
 
 pub(crate) fn update_credential(id: u32, title: &str, login: &str, password: &str) -> Result<(), Box<dyn std::error::Error>> {
-    let mut path = PathBuf::from("src-tauri");
+    let mut path = PathBuf::from("assets");
     path.push("credentials.json");
 
     if let Some(parent) = path.parent() {
@@ -121,7 +121,7 @@ pub(crate) fn update_credential(id: u32, title: &str, login: &str, password: &st
 }
 
 pub(crate) fn delete_credential(id: u32) -> Result<(), Box<dyn std::error::Error>> {
-    let mut path = PathBuf::from("src-tauri");
+    let mut path = PathBuf::from("assets");
     path.push("credentials.json");
 
     if let Some(parent) = path.parent() {
