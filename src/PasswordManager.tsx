@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Password } from "./types";
 import { invoke } from "@tauri-apps/api/tauri";
+
+type Password = {
+  id: number;
+  title: string;
+  password: string;
+};
 
 const PasswordManager: React.FC = () => {
   const [passwords, setPasswords] = useState<Password[]>([]);
@@ -12,14 +17,25 @@ const PasswordManager: React.FC = () => {
   }, []);
 
   const fetchPasswords = async () => {
-    setPasswords(await invoke("get_credential_command", {}));
+    try {
+      const fetchedPasswords: Password[] = await invoke("get_credential_command");
+      console.log("Fetched passwords:", fetchedPasswords); // Отладочная информация
+      setPasswords(fetchedPasswords);
+    } catch (error) {
+      console.error("Failed to fetch passwords:", error);
+    }
   };
 
   const savePassword = async () => {
-    await invoke("add_credential_command", {title: title, password: password  });
-    setPasswords(await invoke("get_credential_command", {}));
-    setTitle("");
-    setPassword("");
+    try {
+      await invoke("add_credential_command", { title, password });
+      console.log("Password saved:", { title, password }); // Отладочная информация
+      fetchPasswords();
+      setTitle("");
+      setPassword("");
+    } catch (error) {
+      console.error("Failed to save password:", error);
+    }
   };
 
   return (
