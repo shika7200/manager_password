@@ -12,12 +12,14 @@ const PasswordManager: React.FC = () => {
   }, []);
 
   const fetchPasswords = async () => {
-    setPasswords(await invoke("getPasswords", {}));
+    setPasswords(await invoke("get_credential_command", {}));
   };
 
   const savePassword = async () => {
-    await invoke("save_password", { password, title });
-    setPasswords(await invoke("getPasswords", {}));
+    await invoke("add_credential_command", {title: title, password: password  });
+    setPasswords(await invoke("get_credential_command", {}));
+    setTitle("");
+    setPassword("");
   };
 
   return (

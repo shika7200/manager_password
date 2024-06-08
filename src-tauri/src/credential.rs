@@ -4,13 +4,13 @@ use std::{env,  fs};
 use std:: path::PathBuf;
 
 #[derive(Serialize, Deserialize)]
-struct Credentials {
+pub struct Credentials {
     title: String,
     password: String,
 }
 
 
-fn add_credential (title: &str, password: &str)-> Result<() , Box<dyn std::error::Error>>{
+pub(crate) fn add_credential (title: &str, password: &str)-> Result<() , Box<dyn std::error::Error>>{
     let app_dir = env::var("TAURI_APP_DIR")?;
     let mut path = PathBuf::from(app_dir);
     path.push("public/credentials.json");
@@ -32,7 +32,7 @@ fn add_credential (title: &str, password: &str)-> Result<() , Box<dyn std::error
 }
 
 
-fn get_credential () -> Result<Vec<Credentials>, Box<dyn std::error::Error>>{
+pub(crate) fn get_credential () -> Result<Vec<Credentials>, Box<dyn std::error::Error>>{
     let app_dir = env::var("TAURI_APP_DIR")?;
     let mut path = PathBuf::from(app_dir);
     path.push("public/credentials.json");
